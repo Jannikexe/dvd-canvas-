@@ -7,5 +7,55 @@
 </head>
 <body>
     <h1>hello world</h1>
+    <canvas id="dvdproject" width="800" height="500" bg-color ="#fff" ></canvas>
+    <img src="DVD_logo.svg.png" alt="">
+    <style>
+        body {
+            background-color: #aeaeae;
+        }
+        canvas {
+            background-color: #fff;
+            border: solid 4px #000; 
+            margin: 0 auto;
+            display: block;
+        }
+        img{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+        const img = document.querySelector('img')
+
+        let x = canvas.width / 2
+        let y = canvas.height /2 
+        let dx = 2
+        let dy = 2
+        function collisionDetection() {
+            if (x+dx > canvas.width-100 || x+dx < 0) {
+                dx = -dx
+            }
+            if (y+dy < 0 || y+dy > canvas.height-50) {
+                dy = -dy
+            }
+        }
+        function imageMovement() {
+            y += dy
+            x += dx
+        }
+        function cleanCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+        }
+        function draw () {
+            cleanCanvas() 
+            ctx.drawImage(img, x, y, 100, 50)
+            collisionDetection()
+            imageMovement()
+            window.requestAnimationFrame(draw)
+        }
+        draw()
+    </script>
 </body>
 </html>
